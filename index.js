@@ -3,6 +3,9 @@ const db= firebase.firestore();
 const taskForm= document.querySelector('#task-form');
 const tasksContainer= document.getElementById('tasks-container');
 
+let editStatus= false;
+let id= "";
+
 const saveTask= (title, description)=> {
     return db.collection('tasks').doc().set({
         title,
@@ -13,6 +16,10 @@ const saveTask= (title, description)=> {
 const onGetTasks= (callback)=> db.collection('tasks').onSnapshot(callback);
 
 const deleteTask= (id)=> db.collection('tasks').doc(id).delete();
+
+const getTask= (id)=> db.collection('tasks').doc(id).get();
+
+const updateTask= (id, taskUpdated)=> db.collection('tasks').doc(id).update(taskUpdated);
 
 
 window.addEventListener('DOMContentLoaded', async(e)=> {
@@ -31,7 +38,7 @@ window.addEventListener('DOMContentLoaded', async(e)=> {
                 <p>${task.description}</p>
                 <div>
                     <button class="btn btn-warning btn-delete" data-id=${doc.id}>Delete</button>
-                    <button class="btn btn-success">Edit</button>
+                    <button class="btn btn-success btn-edit" data-id=${doc.id}>Edit</button>
                 </div>
             </div>`
 
@@ -39,6 +46,19 @@ window.addEventListener('DOMContentLoaded', async(e)=> {
             btnsDelete.forEach((btn)=> {
                 btn.addEventListener('click', async(e)=> {
                     await deleteTask(e.target.dataset.id);
+                });
+            });
+
+            const btnsEdit= document.querySelectorAll('.btn-edit');
+            btnsEdit.forEach((btn)=> {
+                btn.addEventListener('click', async(e)=> {
+                    const doc= await getTask(e.target.dataset.id);
+                    
+                    editStatus= true;
+                    id= doc.id;
+                    taskForm['task-title'].value= doc.data().title;
+                    taskForm['task-description'].value= doc.data().description;
+                    taskForm['btn-task-form'].innerText= "Update"
                 });
             });
         });
@@ -53,9 +73,21 @@ taskForm.addEventListener('submit', async(e)=> {
     const title= taskForm['task-title'];
     const description= taskForm['task-description'];
 
-    await saveTask(title.value, description.value);
+    if(!editStatus){
+        await saveTask(title.value, description.value);
+    }
+    else{
+        await updateTask(id, {
+            title: title.value, 
+            description: description.value
+        });
+
+        editStatus= false;
+        id= "";
+        taskForm['btn-task-form'].innerText= "Save";
+    }
+
     title.focus();
 
     taskForm.reset();
-
 });
