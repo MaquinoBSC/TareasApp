@@ -7,11 +7,31 @@
     <title>Tareas App</title>
 </head>
 <body>
-    
+    <div class="container p-4">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="task-form">
+                            <div class="form-group">
+                                <input type="text" id="task-title" class="form-control" placeholder="Task Title" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <textarea id="task-description" rows="5" class="form-control" placeholder="Task Description"></textarea>
+                            </div>
+                            <button class="btn btn-danger" id="btn-task-form">
+                                Save
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <!-- Importar Bootswatch -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/solar/bootstrap.min.css">
 
     <!-- Importar Core de Firebase, es siempre requerido y debe ser lsitado al principio -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
