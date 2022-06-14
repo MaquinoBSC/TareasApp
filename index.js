@@ -2,6 +2,8 @@ const db= firebase.firestore();
 
 const taskForm= document.querySelector('#task-form');
 const tasksContainer= document.getElementById('tasks-container');
+const buttonFirestoreV9= document.getElementById('buttonFirestoreV9');
+
 
 let editStatus= false;
 let id= "";
@@ -90,4 +92,9 @@ taskForm.addEventListener('submit', async(e)=> {
     title.focus();
 
     taskForm.reset();
+});
+
+
+buttonFirestoreV9.addEventListener('click', ()=> {
+    window.location= 'index-v9.html'; 
 });
