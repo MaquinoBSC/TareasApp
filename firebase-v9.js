@@ -1,6 +1,16 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js"
+import { 
+    getFirestore, 
+    collection, 
+    addDoc, 
+    getDocs, 
+    onSnapshot, 
+    deleteDoc, 
+    doc,
+    getDoc,
+    updateDoc
+} from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -28,4 +38,10 @@ export const getTasks= ()=> getDocs( collection( db, 'tasksV9' ) );
 export const onGetTasks= ( callback )=> onSnapshot( collection( db, 'tasksV9' ), callback );
 
 // Eliminar una tarea por su id
-export const deleteTask= ( id )=> deleteDoc( doc( db, 'tasksV9', id ));
+export const deleteTask= ( id )=> deleteDoc(doc( db, 'tasksV9', id ));
+
+// Obtener una tarea por su id
+export const getTask= ( id )=> getDoc(doc( db, 'tasksV9', id));
+
+// Editar una tarea por su id
+export const updateTask= ( id, newFields )=> updateDoc( doc(db, 'tasksV9', id), newFields );
