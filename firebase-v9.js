@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-app.js";
-import { getFirestore, collection, addDoc, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js"
+import { getFirestore, collection, addDoc, getDocs, onSnapshot, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.8.3/firebase-firestore.js"
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
@@ -25,4 +25,7 @@ export const saveTask= ( title, description )=> addDoc(collection( db, 'tasksV9'
 export const getTasks= ()=> getDocs( collection( db, 'tasksV9' ) );
 
 //Obtener los datos en tiempo real
-export const onGetTasks= ( callback )=> onSnapshot( collection( db, 'tasksV9'), callback );
+export const onGetTasks= ( callback )=> onSnapshot( collection( db, 'tasksV9' ), callback );
+
+// Eliminar una tarea por su id
+export const deleteTask= ( id )=> deleteDoc( doc( db, 'tasksV9', id ));

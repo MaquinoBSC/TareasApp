@@ -1,4 +1,4 @@
-import { getTasks, saveTask, onGetTasks } from './firebase-v9.js';
+import { getTasks, saveTask, onGetTasks, deleteTask } from './firebase-v9.js';
 
 // Referencias HTML
 const tasksContainer= document.getElementById('tasks-container');
@@ -16,11 +16,20 @@ window.addEventListener('DOMContentLoaded', async ()=> {
                 <div>
                     <h3> ${ title } </h3>
                     <p> ${ description } </p>
+                    <button class="btn-delete" data-id="${ doc.id }"> Delete </button>
                 </div>
             `;
         });
     
         tasksContainer.innerHTML= html;
+        const btnsDelete= tasksContainer.querySelectorAll('.btn-delete');
+
+        btnsDelete.forEach( btn => {
+            btn.addEventListener( 'click', ( event )=> {
+                const { target: { dataset } }= event;
+                deleteTask( dataset.id );
+            });
+        });
     });
 });
 
