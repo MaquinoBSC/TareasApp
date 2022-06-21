@@ -15,11 +15,13 @@ window.addEventListener('DOMContentLoaded', async ()=> {
         querySnapshot.forEach( doc => {
             const { title, description }= doc.data();
             html+= `
-                <div>
-                    <h3> ${ title } </h3>
+                <div class="card card-body mt-2 border-primary">
+                    <h3 class="h5"> ${ title } </h3>
                     <p> ${ description } </p>
-                    <button class="btn-delete" data-id="${ doc.id }"> Delete </button>
-                    <button class="btn-edit" data-id="${ doc.id }"> Edit </button>
+                    <div>
+                        <button class="btn btn-danger btn-delete" data-id="${ doc.id }"> Delete </button>
+                        <button class="btn btn-info btn-edit" data-id="${ doc.id }"> Edit </button>
+                    </div>
                 </div>
             `;
         });
