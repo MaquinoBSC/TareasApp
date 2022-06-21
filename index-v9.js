@@ -63,6 +63,8 @@ taskForm.addEventListener('submit', ( e )=> {
     else{
         updateTask( id, {'title': title.value, 'description': description.value} );
         editStatus= false;
+        id= '';
+        taskForm['btn-task-save'].innerText= 'Save';
     }
     taskForm.reset();
 });
